@@ -1,0 +1,12 @@
+{
+  "extends": ["react-app", "react-app/jest"],
+  "rules": {
+    "quotes": [2, "single", { "avoidEscape": true }]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "@babel/eslint-parser"
+}
