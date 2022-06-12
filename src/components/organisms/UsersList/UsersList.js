@@ -21,8 +21,8 @@ const StyledList = styled.ul`
 export const UsersList = () => (
   <Wrapper>
     <StyledList>
-      {users.map((userData) => (
-        <UsersListItem userData={userData} />
+      {users.map((userData, index) => (
+        <UsersListItem userData={userData} key={index} />
       ))}
     </StyledList>
   </Wrapper>
