@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'components/atoms/Button/Button';
+import { DeleteButton } from 'components/atoms/DeleteButton/DeleteButton';
 import { Wrapper, StyledAverage, StyledInfo } from './UsersListItem.styles';
 
-const UsersListItem = ({ deleteUser, userData: { average, name, attendance = '0%' } }) => (
+export const UsersListItem = ({ deleteUser, userData: { average, name, attendance = '0%' } }) => (
   <Wrapper>
     <StyledAverage value={average}>{average}</StyledAverage>
     <StyledInfo>
       <p>{name}</p>
       <p>attendance: {attendance}</p>
     </StyledInfo>
-    <Button onClick={() => deleteUser(name)} />
+    <DeleteButton onClick={() => deleteUser(name)} />
   </Wrapper>
 );
 
@@ -21,5 +21,3 @@ UsersListItem.propTypes = {
     attendance: PropTypes.string,
   }),
 };
-
-export default UsersListItem
