@@ -1,18 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import { UsersList } from 'components/organisms/UsersList/UsersList';
-import { UserShape } from 'types';
+import { UsersContext } from 'views/Root';
 
-export const Dashboard = ({users, deleteUser}) => {
+export const Dashboard = () => {
+  const ctx = useContext(UsersContext)
+
   return (
     <ViewWrapper>
-      <UsersList users={users} deleteUser={deleteUser} />
+      <UsersList users={ctx.users} />
     </ViewWrapper>
   );
 };
-
-Dashboard.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape(UserShape)),
-  deleteUser: PropTypes.func,
-}
