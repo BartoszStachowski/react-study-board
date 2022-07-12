@@ -5,6 +5,12 @@ import { StyledList, StyledTitle, Wrapper } from './UsersList.styles';
 import { FormField } from 'components/molecules/FormField/FormField';
 import { Button } from 'components/atoms/Button/Button';
 
+const initialFormState = {
+  name: '',
+  attendance: '',
+  average: '',
+}
+
 const mockAPI = (success) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -20,6 +26,7 @@ const mockAPI = (success) => {
 export const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoadingState] = useState(false);
+  const [formValues, setFormValues] = useState(initialFormState);
 
   useEffect(() => {
     setLoadingState(true);
@@ -37,14 +44,35 @@ export const UsersList = () => {
     setUsers(filteredUsers);
   };
 
+  const handleInputChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    const newUser = {
+      name: formValues.name,
+      attendance: formValues.attendance,
+      average: formValues.average,
+    }
+
+    setUsers([newUser, ...users]);
+    setFormValues(initialFormState);
+  }
+
   return (
     <>
-      <Wrapper>
+      <Wrapper as="form" onSubmit={handleAddUser}>
         <StyledTitle>Add new student</StyledTitle>
-        <FormField name="name" label="Name" id="name" />
-        <FormField name="attendance" label="Attendance" id="attendance" />
-        <FormField name="average" label="Average" id="average" />
-        <Button>Add</Button>
+        <FormField name="name" label="Name" id="name" value={formValues.name} onChange={handleInputChange} />
+        <FormField name="attendance" label="Attendance" id="attendance" value={formValues.attendance}
+                   onChange={handleInputChange} />
+        <FormField name="average" label="Average" id="average" value={formValues.average}
+                   onChange={handleInputChange} />
+        <Button type="submit">Add</Button>
       </Wrapper>
       <Wrapper>
         <StyledTitle>{isLoading ? 'Loading...' : 'Users list'}</StyledTitle>
